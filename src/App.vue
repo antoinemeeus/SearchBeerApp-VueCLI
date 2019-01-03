@@ -1,29 +1,85 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-navigation-drawer
+      fixed
+      width="400"
+      :clipped="$vuetify.breakpoint.mdAndUp"
+      app
+      v-model="drawer"
+    >
+      <SearchAndFilters />
+
+    </v-navigation-drawer>
+
+    <v-toolbar
+      color="indigo"
+      dark
+      app
+      :clipped-left="$vuetify.breakpoint.mdAndUp"
+      fixed
+    >
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Beer App</v-toolbar-title>
+      <v-toolbar-items mx-4>
+        <v-btn
+          flat
+          to="/"
+        >Home</v-btn>
+        <v-btn
+          flat
+          to="/about"
+        >About</v-btn>
+      </v-toolbar-items>
+      <v-spacer></v-spacer>
+
+      <v-toolbar-title
+        v-if="this.$store.state.loading"
+        class="white--text"
+      >Loading</v-toolbar-title>
+      <v-progress-circular
+        v-if="this.$store.state.loading"
+        indeterminate
+        color="red"
+      ></v-progress-circular>
+
+    </v-toolbar>
+    <v-content>
+
+      <router-view />
+
+    </v-content>
+    <v-footer
+      color="blue-grey"
+      class="white--text"
+      app
+    >
+      <span>Vuetify</span>
+      <v-spacer></v-spacer>
+      <span>&copy; 2018</span>
+    </v-footer>
+
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import SearchAndFilters from "./components/SearchAndFilters";
+
+export default {
+  name: "App",
+  components: {
+    SearchAndFilters
+  },
+  data() {
+    return {
+      drawer: null
+    };
+  },
+  methods: {},
+  computed: {},
+  watch: {
+    $route(to, from) {
+      // react to route changes...
     }
   }
-}
-</style>
+};
+</script>
