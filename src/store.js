@@ -10,7 +10,7 @@ Vue.use(VueAxios, axios)
 export default new Vuex.Store({
   state: {
     beers: [],
-    loading: true,
+    loading: false,
     pagination_parameters: '',
     filter_parameters: ''
   },

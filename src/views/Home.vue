@@ -32,6 +32,7 @@
             flat
             solo-inverted
             v-model="search"
+            @keyup.enter.native="submitSearch()"
             prepend-icon="search"
             label="Search"
             class="hidden-sm-and-down"
