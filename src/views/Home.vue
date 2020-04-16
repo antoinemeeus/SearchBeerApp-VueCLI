@@ -16,8 +16,7 @@
           contain
           width="300"
           :src="require('@/assets/brew-dog.png')"
-        >
-        </v-img>
+        />
       </v-flex>
       <v-flex>
         Welcome to the Beer App!
@@ -29,20 +28,22 @@
           justify-space-around
         >
           <v-text-field
+            v-model="search"
             flat
             solo-inverted
-            v-model="search"
-            @keyup.enter.native="submitSearch()"
             prepend-icon="search"
             label="Search"
             class="hidden-sm-and-down"
-          ></v-text-field>
+            @keyup.enter.native="submitSearch()"
+          />
           <v-btn
             round
             color="primary"
             dark
             @click="submitSearch()"
-          >Search & browse Now!</v-btn>
+          >
+            Search & browse Now!
+          </v-btn>
         </v-layout>
       </v-flex>
       <v-flex>
@@ -54,7 +55,9 @@
           color="primary"
           dark
           to="/results"
-        >Simply browse</v-btn>
+        >
+          Simply browse
+        </v-btn>
       </v-flex>
       <v-flex>
         Or
@@ -65,7 +68,9 @@
           color="primary"
           dark
           to="/beer/random"
-        >Get some random beer!</v-btn>
+        >
+          Get some random beer!
+        </v-btn>
       </v-flex>
     </v-layout>
   </v-container>

@@ -4,46 +4,45 @@
     column
   >
     <v-flex class="text-xs-center">
-      <span class="subheading">{{this.payload.title}}</span>
+      <span class="subheading">
+        {{ this.payload.title }}
+      </span>
     </v-flex>
 
     <v-flex class="px-4 my-0">
-
       <v-range-slider
-        class="my-0 py-0"
-        v-on:change="$emit('sliderChange',emitValue)"
         v-model="range"
+        class="my-0 py-0"
         :max="this.payload.range[1]"
         :min="this.payload.range[0]"
-      ></v-range-slider>
-
+        @change="$emit('sliderChange',emitValue)"
+      />
     </v-flex>
     <v-flex class="px-4 my-0">
       <v-layout justify-space-between>
         <v-text-field
           v-model="range[0]"
-          v-on:blur="$emit('sliderChange',emitValue)"
           class="mt-0 px-2 mr-4"
           hide-details
           :rules="[textRules.min]"
           solo
           single-line
           type="number"
-        ></v-text-field>
+          @blur="$emit('sliderChange',emitValue)"
+        />
         <v-text-field
           v-model="range[1]"
-          v-on:blur="$emit('sliderChange',emitValue)"
           class="mt-0 px-2 ml-4"
           :rules="[textRules.max]"
           hide-details
           solo
           single-line
           type="number"
-        ></v-text-field>
+          @blur="$emit('sliderChange',emitValue)"
+        />
       </v-layout>
     </v-flex>
   </v-layout>
-
 </template>
 
 
@@ -60,6 +59,11 @@ export default {
       }
     };
   },
+  computed: {
+    emitValue() {
+      return { filterSwitch: this.payload.filter, value: this.range };
+    }
+  },
   methods: {
     textFieldsLimitsCheck() {
       var isCorrect = true;
@@ -73,11 +77,6 @@ export default {
         this.range[1] = this.payload.range[1];
       }
       return isCorrect;
-    }
-  },
-  computed: {
-    emitValue() {
-      return { filterSwitch: this.payload.filter, value: this.range };
     }
   }
 };

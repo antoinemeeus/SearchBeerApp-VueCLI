@@ -23,7 +23,7 @@
             <v-progress-circular
               indeterminate
               color="black lighten-5"
-            ></v-progress-circular>
+            />
           </v-layout>
         </v-img>
       </v-flex>
@@ -33,12 +33,14 @@
             <v-card-title>
               <div>
                 <h4>{{ this.beerInformation.name }}</h4><br>
-                <span class="font-italic">"{{this.beerInformation.tagline}}"</span>
+                <span class="font-italic">
+                  "{{ this.beerInformation.tagline }}"
+                </span>
               </div>
             </v-card-title>
-            <v-divider></v-divider>
+            <v-divider />
             <v-card-text>
-              {{this.beerInformation.description}}
+              {{ this.beerInformation.description }}
             </v-card-text>
           </v-flex>
           <v-flex>
@@ -55,11 +57,10 @@
                       :src="require('@/assets/abv_drop.png')"
                       contain
                       max-height="60px"
-                    >
-                    </v-img>
+                    />
 
                     <div class="mt-1">
-                      <span>ABV: {{this.beerInformation.abv}}%</span>
+                      <span>ABV: {{ this.beerInformation.abv }}%</span>
                     </div>
                   </div>
                   <span>Alcohol by volume</span>
@@ -72,11 +73,10 @@
                       :src="require(`@/assets/srm-${srmIndex}.png`)"
                       contain
                       max-height="60px"
-                    >
-                    </v-img>
+                    />
 
                     <div class="mt-1">
-                      <span>SRM: {{this.beerInformation.srm}}</span>
+                      <span>SRM: {{ this.beerInformation.srm }}</span>
                     </div>
                   </div>
                   <span>Beer color</span>
@@ -89,11 +89,10 @@
                       :src="require(`@/assets/hops-${ibuIndex}.png`)"
                       contain
                       max-height="60px"
-                    >
-                    </v-img>
+                    />
 
                     <div class="mt-1">
-                      <span>IBU: {{this.beerInformation.ibu}}</span>
+                      <span>IBU: {{ this.beerInformation.ibu }}</span>
                     </div>
                   </div>
                   <span>Relative bitterness of beer</span>
@@ -106,31 +105,27 @@
                       :src="require(`@/assets/OG_beer.png`)"
                       contain
                       max-height="60px"
-                    >
-                    </v-img>
+                    />
 
                     <div class="mt-1">
-                      <span>OG: {{this.beerInformation.target_og}}</span>
+                      <span>OG: {{ this.beerInformation.target_og }}</span>
                     </div>
                   </div>
                   <span>Original gravity of beer</span>
                 </v-tooltip>
               </v-flex>
-
             </v-layout>
           </v-flex>
         </v-layout>
       </v-flex>
-
     </v-layout>
   </v-card>
-
 </template>
 
 <script>
 export default {
-  data: () => ({}),
   props: ["beerInformation"],
+  data: () => ({}),
   computed: {
     srmIndex() {
       //Return the index of srm of a list that is nearest of the actual beer srm

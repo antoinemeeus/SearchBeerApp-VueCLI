@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h4 class="sub-header py-3"> Brew Sheet:</h4>
+    <h4 class="sub-header py-3">
+      Brew Sheet:
+    </h4>
     <table>
       <tr
         v-for="item in items"
@@ -11,17 +13,16 @@
             :src="item.imageSrc"
             contain
             max-height="60px"
-          >
-          </v-img>
+          />
         </td>
         <td
           xs3
           class="py-2"
         >
-          {{item.title}}
+          {{ item.title }}
         </td>
         <td xs6>
-          {{item.content}} {{item.append}}
+          {{ item.content }} {{ item.append }}
         </td>
       </tr>
       <tr>
@@ -30,15 +31,14 @@
             :src="require(`@/assets/food_icon.png`)"
             contain
             max-height="60px"
-          >
-          </v-img>
+          />
           <!-- <v-icon>
             {{foodItems.icon}}
           </v-icon> -->
         </td>
         <td>
           <h5>
-            {{foodItems.title}}
+            {{ foodItems.title }}
           </h5>
         </td>
         <td>
@@ -46,19 +46,19 @@
             v-for="(food,key) in foodItems.content"
             :key="key"
           >
-            {{food}}
+            {{ food }}
           </div>
         </td>
       </tr>
       <tr>
         <td>
           <v-icon>
-            {{ingredientsItems.icon}}
+            {{ ingredientsItems.icon }}
           </v-icon>
         </td>
         <td>
           <h5>
-            {{ingredientsItems.title}}
+            {{ ingredientsItems.title }}
           </h5>
         </td>
         <td>
@@ -67,9 +67,9 @@
             :key="value.key"
           >
             <span class="body-2">
-              {{key}}:
+              {{ key }}:
             </span>
-            <span> {{formatList(value)}}</span>
+            <span> {{ formatList(value) }}</span>
           </div>
         </td>
       </tr>
@@ -168,6 +168,33 @@ export default {
       content: null
     }
   }),
+  computed: {
+    srmIndex() {
+      //Return the index of srm of a list that is nearest of the actual beer srm
+      //Use to select images from assets with correct srm-{index}
+      var srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
+      var pr_srm = this.beerInformation.srm;
+      var number = srmIndex.reduce(function(prev, curr) {
+        return Math.abs(curr - pr_srm) < Math.abs(prev - pr_srm) ? curr : prev;
+      });
+      return number;
+    },
+    ibuIndex() {
+      //Return the index of ibu of a list/scale that is nearest of the actual beer ibu
+      //Use to select images from assets with correct ibu-{index}
+      var ibuIndex = [];
+      var scale = [0, 120];
+      var step = 12;
+      for (let i = scale[0]; i <= scale[1]; i += step) {
+        ibuIndex.push(i);
+      }
+      var pr_ibu = this.beerInformation.ibu;
+      var number = ibuIndex.reduce(function(prev, curr) {
+        return Math.abs(curr - pr_ibu) < Math.abs(prev - pr_ibu) ? curr : prev;
+      });
+      return number;
+    }
+  },
   mounted() {
     this.setItemContent();
   },
@@ -240,33 +267,6 @@ export default {
         return number;
       }
       return "";
-    }
-  },
-  computed: {
-    srmIndex() {
-      //Return the index of srm of a list that is nearest of the actual beer srm
-      //Use to select images from assets with correct srm-{index}
-      var srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
-      var pr_srm = this.beerInformation.srm;
-      var number = srmIndex.reduce(function(prev, curr) {
-        return Math.abs(curr - pr_srm) < Math.abs(prev - pr_srm) ? curr : prev;
-      });
-      return number;
-    },
-    ibuIndex() {
-      //Return the index of ibu of a list/scale that is nearest of the actual beer ibu
-      //Use to select images from assets with correct ibu-{index}
-      var ibuIndex = [];
-      var scale = [0, 120];
-      var step = 12;
-      for (let i = scale[0]; i <= scale[1]; i += step) {
-        ibuIndex.push(i);
-      }
-      var pr_ibu = this.beerInformation.ibu;
-      var number = ibuIndex.reduce(function(prev, curr) {
-        return Math.abs(curr - pr_ibu) < Math.abs(prev - pr_ibu) ? curr : prev;
-      });
-      return number;
     }
   }
 };

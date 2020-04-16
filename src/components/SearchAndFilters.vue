@@ -1,52 +1,51 @@
 <template>
   <v-container fluid>
-
-    <v-divider class="py-3"></v-divider>
+    <v-divider class="py-3" />
     <v-text-field
-      class="pb-0 mb-0"
       v-model="userSearch"
-      @blur="requestAPI"
-      @keyup.enter="requestAPI"
+      class="pb-0 mb-0"
       label="Search for beer name/food/ingredients"
       outline
       clearable
       append-outer-icon="search"
+      @blur="requestAPI"
+      @keyup.enter="requestAPI"
       @click:append-outer="requestAPI"
-    ></v-text-field>
+    />
     <v-radio-group
-      class="pt-0 mt-0 "
       v-model="searchUserInputOption"
+      class="pt-0 mt-0 "
       row
     >
       <v-radio
         label="by Beer Name"
         value="beer_name"
-      ></v-radio>
+      />
       <v-radio
         label="by Food Pairing"
         value="food"
-      ></v-radio>
+      />
       <v-radio
         label="by Malt"
         value="malt"
-      ></v-radio>
+      />
       <v-radio
         label="by Hops"
         value="hops"
-      ></v-radio>
+      />
     </v-radio-group>
-    <v-divider></v-divider>
+    <v-divider />
     <FilterSwitch
       v-for="(item,i) in items"
       :key="i"
       :payload="item"
-      v-on:sliderChange="onFilterChange"
+      @sliderChange="onFilterChange"
     />
-    <v-divider></v-divider>
+    <v-divider />
     <v-menu
       ref="menu"
-      :close-on-content-click="false"
       v-model="menu"
+      :close-on-content-click="false"
       :nudge-right="40"
       lazy
       transition="scale-transition"
@@ -61,7 +60,7 @@
         label="Beers brew after"
         prepend-icon="event"
         readonly
-      ></v-text-field>
+      />
       <v-date-picker
         v-model="date_after"
         type="month"
@@ -70,14 +69,13 @@
         no-title
         scrollable
         @input="pickedDate"
-      >
-      </v-date-picker>
+      />
     </v-menu>
-    <v-divider></v-divider>
+    <v-divider />
     <v-menu
       ref="menu2"
-      :close-on-content-click="false"
       v-model="menu2"
+      :close-on-content-click="false"
       :nudge-right="40"
       lazy
       transition="scale-transition"
@@ -92,7 +90,7 @@
         label="Beers brew before:"
         prepend-icon="event"
         readonly
-      ></v-text-field>
+      />
       <v-date-picker
         v-model="date_before"
         type="month"
@@ -101,11 +99,9 @@
         no-title
         scrollable
         @input="pickedDate"
-      >
-      </v-date-picker>
+      />
     </v-menu>
   </v-container>
-
 </template>
 
 
@@ -142,6 +138,7 @@ export default {
       ]
     };
   },
+  computed: {},
   created() {
     this.initializeFilter();
     this.setQueryString();
@@ -203,7 +200,6 @@ export default {
       const [year, month] = date.split("-");
       return `${month}-${year}`;
     }
-  },
-  computed: {}
+  }
 };
 </script>

@@ -3,7 +3,6 @@
     fluid
     grid-list-md
   >
-
     <v-data-iterator
       :items="beers"
       :rows-per-page-items="rowsPerPageItems"
@@ -20,7 +19,7 @@
         sm6
         md4
       >
-        <BeerCard :beerInformation="props.item"></BeerCard>
+        <BeerCard :beer-information="props.item" />
       </v-flex>
     </v-data-iterator>
   </v-container>
@@ -31,6 +30,9 @@ import { mapState } from "vuex";
 import BeerCard from "../components/BeerCard";
 export default {
   name: "DisplaySearchResults",
+  components: {
+    BeerCard
+  },
   data: () => ({
     show: false,
     rowsPerPageItems: [12, 24, 36],
@@ -45,9 +47,6 @@ export default {
     easing: "easeInOutCubic",
     number: 0
   }),
-  components: {
-    BeerCard
-  },
   watch: {
     pagination(newP, oldP) {
       this.setPaginationQuery();

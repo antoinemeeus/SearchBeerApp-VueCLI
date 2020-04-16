@@ -1,5 +1,4 @@
 <template>
-
   <v-container
     grid-list-xl
     justify-center
@@ -18,14 +17,14 @@
         </v-btn>
       </v-flex>
       <v-flex>
-        <v-progress-linear :indeterminate="loadingBeer"></v-progress-linear>
+        <v-progress-linear :indeterminate="loadingBeer" />
       </v-flex>
 
       <v-flex>
         <v-layout
+          v-if="!loadingBeer"
           flex-child
           wrap
-          v-if="!loadingBeer"
         >
           <v-flex
             xs12
@@ -48,7 +47,7 @@
                 <v-progress-circular
                   indeterminate
                   color="black lighten-5"
-                ></v-progress-circular>
+                />
               </v-layout>
             </v-img>
           </v-flex>
@@ -59,66 +58,67 @@
           >
             <v-layout column>
               <v-flex>
-
                 <div>
-                  <h4 class="display-2">{{ this.idvBeerInformation.name }}</h4><br>
-                  <span class=" headline font-italic">"{{this.idvBeerInformation.tagline}}"</span>
+                  <h4 class="display-2">
+                    {{ this.idvBeerInformation.name }}
+                  </h4><br>
+                  <span class=" headline font-italic">
+                    "{{ this.idvBeerInformation.tagline }}"
+                  </span>
                 </div>
 
-                <v-divider></v-divider>
+                <v-divider />
 
                 <v-layout
                   py-4
                   column
                 >
                   <v-flex py-3>
-                    <h5 class="title">Description</h5>
+                    <h5 class="title">
+                      Description
+                    </h5>
                   </v-flex>
                   <v-flex>
                     <div>
-                      {{this.idvBeerInformation.description}}
+                      {{ this.idvBeerInformation.description }}
                     </div>
                   </v-flex>
                   <v-flex pb-2>
-                    <span class="font-weight-medium font-italic">First brewed: {{this.idvBeerInformation.first_brewed}}</span>
+                    <span class="font-weight-medium font-italic">
+                      First brewed: {{ this.idvBeerInformation.first_brewed }}
+                    </span>
                   </v-flex>
                 </v-layout>
 
                 <BrewSheet
                   v-if="!loadingBeer"
-                  :beerInformation="this.idvBeerInformation"
+                  :beer-information="this.idvBeerInformation"
                 />
               </v-flex>
             </v-layout>
           </v-flex>
-
         </v-layout>
       </v-flex>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-flex
         d-flex
         align-start
-      >
-
-      </v-flex>
+      />
 
       <!-- <BeerCard :beerInformation="idvBeerInformation"></BeerCard> -->
     </v-layout>
   </v-container>
-
 </template>
 
 <script>
-import BeerCard from "../components/BeerCard";
 import BrewSheet from "../components/BrewSheet";
 import { mapState } from "vuex";
 export default {
-  name: "beer",
-  props: ["id"],
+  name: "Beer",
   components: {
-    BeerCard,
     BrewSheet
   },
+  props: ["id"],
   data() {
     return {
       loadingBeer: true,
@@ -158,6 +158,9 @@ export default {
       ]
     };
   },
+  mounted() {
+    this.requestBeer(this.id);
+  },
   methods: {
     setItemContent() {
       console.log("Trying to setItem");
@@ -194,9 +197,6 @@ export default {
         this.$store.dispatch("fetchUniqueBeers", param);
       }
     }
-  },
-  mounted() {
-    this.requestBeer(this.id);
   },
   computed: {
     ...mapState(["beers"]),
