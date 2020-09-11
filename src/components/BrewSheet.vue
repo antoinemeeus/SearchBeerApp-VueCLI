@@ -16,8 +16,8 @@
           />
         </td>
         <td
-          xs3
           class="py-2"
+          xs3
         >
           {{ item.title }}
         </td>
@@ -79,7 +79,14 @@
 
 <script>
 export default {
-  props: ["beerInformation"],
+  props: {
+    beerInformation: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
   data: () => ({
     items: [
       {
@@ -198,7 +205,6 @@ export default {
   },
   methods: {
     setItemContent() {
-      console.log("Trying to setItem");
       this.foodItems.content = this.beerInformation[this.foodItems.key];
       this.ingredientsItems.content = this.beerInformation[
         this.ingredientsItems.key
@@ -210,7 +216,6 @@ export default {
         obj.content = this.beerInformation[obj.key];
       });
     },
-
     formatList(listOfObj) {
       if (typeof listOfObj === "string") return listOfObj;
       //remove duplicate names
@@ -237,7 +242,6 @@ export default {
         this.getIndex(keyName) +
         ".png");
     },
-
     getIndex(val) {
       if (val === "srm") {
         let srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
@@ -267,6 +271,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-</style>

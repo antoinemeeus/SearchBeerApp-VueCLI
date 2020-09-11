@@ -1,28 +1,28 @@
 <template>
   <v-card
-    hover
     :to="`/beer/${beerInformation.id}`"
+    hover
   >
     <v-layout>
       <v-flex xs4>
         <v-img
-          :src="`${beerInformation.image_url}`"
           :lazy-src="require('@/assets/lazy_beer.png')"
+          :src="`${beerInformation.image_url}`"
+          class="white lighten-2"
           contain
           max-height="250px"
           max-width="150px"
-          class="white lighten-2"
         >
           <v-layout
             slot="placeholder"
-            fill-height
             align-center
+            fill-height
             justify-center
             ma-0
           >
             <v-progress-circular
-              indeterminate
               color="black lighten-5"
+              indeterminate
             />
           </v-layout>
         </v-img>
@@ -46,9 +46,9 @@
           <v-flex>
             <v-layout
               align-end
+              fill-height
               justify-space-around
               row
-              fill-height
             >
               <v-flex class="text-xs-center">
                 <v-tooltip bottom>
@@ -124,7 +124,14 @@
 
 <script>
 export default {
-  props: ["beerInformation"],
+  props: {
+    beerInformation: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
   data: () => ({}),
   computed: {
     srmIndex() {

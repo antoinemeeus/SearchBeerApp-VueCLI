@@ -93,7 +93,6 @@ export default {
           "SET_FILTERS_PARAMETERS",
           "beer_name=" + this.search
         );
-
       this.$router.push("/results");
     }
   }

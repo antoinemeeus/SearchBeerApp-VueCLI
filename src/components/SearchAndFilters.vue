@@ -3,11 +3,11 @@
     <v-divider class="py-3" />
     <v-text-field
       v-model="userSearch"
+      append-outer-icon="search"
       class="pb-0 mb-0"
+      clearable
       label="Search for beer name/food/ingredients"
       outline
-      clearable
-      append-outer-icon="search"
       @blur="requestAPI"
       @keyup.enter="requestAPI"
       @click:append-outer="requestAPI"
@@ -47,12 +47,12 @@
       v-model="menu"
       :close-on-content-click="false"
       :nudge-right="40"
-      lazy
-      transition="scale-transition"
-      offset-y
       full-width
+      lazy
       max-width="290px"
       min-width="290px"
+      offset-y
+      transition="scale-transition"
     >
       <v-text-field
         slot="activator"
@@ -63,11 +63,11 @@
       />
       <v-date-picker
         v-model="date_after"
-        type="month"
         :max="new Date().toISOString().substr(0, 10)"
         min="2007-03-01"
         no-title
         scrollable
+        type="month"
         @input="pickedDate"
       />
     </v-menu>
@@ -77,12 +77,12 @@
       v-model="menu2"
       :close-on-content-click="false"
       :nudge-right="40"
-      lazy
-      transition="scale-transition"
-      offset-y
       full-width
+      lazy
       max-width="290px"
       min-width="290px"
+      offset-y
+      transition="scale-transition"
     >
       <v-text-field
         slot="activator"
@@ -93,11 +93,11 @@
       />
       <v-date-picker
         v-model="date_before"
-        type="month"
         :max="new Date().toISOString().substr(0, 10)"
         min="2007-03-01"
         no-title
         scrollable
+        type="month"
         @input="pickedDate"
       />
     </v-menu>
@@ -112,7 +112,6 @@ export default {
   components: {
     FilterSwitch
   },
-  props: [],
   data() {
     return {
       menu: false,
@@ -132,9 +131,9 @@ export default {
 
       //Items in filtered list switch for sliders in drawers- will be included in filters with initializeFilter
       items: [
-        { title: "ABV range", filter: "abv_", range: [0, 60] },
-        { title: "IBU range", filter: "ibu_", range: [0, 255] },
-        { title: "EBC range", filter: "ebc_", range: [0, 120] }
+        {title: "ABV range", filter: "abv_", range: [0, 60]},
+        {title: "IBU range", filter: "ibu_", range: [0, 255]},
+        {title: "EBC range", filter: "ebc_", range: [0, 120]}
       ]
     };
   },
@@ -169,7 +168,7 @@ export default {
       this.$store.commit("SET_FILTERS_PARAMETERS", str);
       this.filters[this.searchUserInputOption] = "";
     },
-    onFilterChange: function(newRange) {
+    onFilterChange: function (newRange) {
       this.filters[newRange.filterSwitch + "gt"] = newRange.value[0];
       this.filters[newRange.filterSwitch + "lt"] = newRange.value[1];
       this.requestAPI();

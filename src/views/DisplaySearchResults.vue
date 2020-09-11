@@ -65,7 +65,7 @@ export default {
   watch: {
     pagination(newP, oldP) {
       this.setPaginationQuery();
-      if (newP.page != oldP.page) {
+      if (newP.page !== oldP.page) {
         //scroll to top of window after changing pages
         this.$vuetify.goTo(this.target, this.options);
       }

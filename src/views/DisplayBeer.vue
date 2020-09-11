@@ -17,7 +17,7 @@
         </v-btn>
       </v-flex>
       <v-flex>
-        <v-progress-linear :indeterminate="loadingBeer"/>
+        <v-progress-linear :indeterminate="loadingBeer" />
       </v-flex>
 
       <v-flex>
@@ -67,7 +67,7 @@
                   </span>
                 </div>
 
-                <v-divider/>
+                <v-divider />
 
                 <v-layout
                   py-4
@@ -99,12 +99,11 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-spacer/>
+      <v-spacer />
       <v-flex
         d-flex
         align-start
       />
-
       <!-- <BeerCard :beerInformation="idvBeerInformation"></BeerCard> -->
     </v-layout>
   </v-container>
@@ -119,7 +118,12 @@ export default {
   components: {
     BrewSheet
   },
-  props: ["id"],
+  props: {
+    id: {
+      type: String,
+      default: "1"
+    }
+  },
   data() {
     return {
       loadingBeer: true,
@@ -211,8 +215,7 @@ export default {
     },
     formatList(listOfObj) {
       if (typeof listOfObj === "string") return listOfObj;
-      //remove duplicate names
-      console.log(listOfObj);
+
       return listOfObj
         .filter((obj, pos, arr) => {
           return arr.map(mapObj => mapObj["name"]).indexOf(obj["name"]) === pos;
@@ -222,9 +225,8 @@ export default {
     },
     requestBeer(param) {
       //return beer in memory
-      if (typeof param === "string") console.log("param" + typeof param);
       let test = this.beers.find(function (obj) {
-        return obj.id == param;
+        return obj.id === param;
       });
       if (test) {
         this.idvBeerInformation = test;

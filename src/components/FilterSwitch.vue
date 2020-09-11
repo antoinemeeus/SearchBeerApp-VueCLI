@@ -1,7 +1,7 @@
 <template>
   <v-layout
-    py-2
     column
+    py-2
   >
     <v-flex class="text-xs-center">
       <span class="subheading">
@@ -12,9 +12,9 @@
     <v-flex class="px-4 my-0">
       <v-range-slider
         v-model="range"
-        class="my-0 py-0"
         :max="payload.range[1]"
         :min="payload.range[0]"
+        class="my-0 py-0"
         @change="$emit('sliderChange',emitValue)"
       />
     </v-flex>
@@ -22,21 +22,21 @@
       <v-layout justify-space-between>
         <v-text-field
           v-model="range[0]"
+          :rules="[textRules.min]"
           class="mt-0 px-2 mr-4"
           hide-details
-          :rules="[textRules.min]"
-          solo
           single-line
+          solo
           type="number"
           @blur="$emit('sliderChange',emitValue)"
         />
         <v-text-field
           v-model="range[1]"
-          class="mt-0 px-2 ml-4"
           :rules="[textRules.max]"
+          class="mt-0 px-2 ml-4"
           hide-details
-          solo
           single-line
+          solo
           type="number"
           @blur="$emit('sliderChange',emitValue)"
         />
@@ -45,10 +45,16 @@
   </v-layout>
 </template>
 
-
 <script>
 export default {
-  props: ["payload"],
+  props: {
+    payload: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+    }
+  },
   data() {
     return {
       range: [...this.payload.range],
