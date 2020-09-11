@@ -1,5 +1,11 @@
 # BeerStoreApp
 
+Small project to browse BrewDog beers.
+
+This uses the [punk](https://punkapi.com/) API to fetch the beers information. 
+
+Enjoy!
+
 ## Project setup
 ```
 npm install
