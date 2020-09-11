@@ -1,6 +1,6 @@
 // vue.config.js
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/SearchBeerApp-VueCLI/'
-    : '/'
+  devServer: {
+    port: 8080 // CHANGE YOUR PORT HERE!
+  }
 }
