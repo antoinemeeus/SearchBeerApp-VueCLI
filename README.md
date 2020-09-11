@@ -4,6 +4,8 @@ Small project to browse BrewDog beers.
 
 This uses the [punk](https://punkapi.com/) API to fetch the beer information. 
 
+See here the [demo link](https://vue-punk-beer.netlify.app/).
+
 Enjoy!
 
 ## Project setup
