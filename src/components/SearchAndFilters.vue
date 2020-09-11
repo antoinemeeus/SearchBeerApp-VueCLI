@@ -150,18 +150,6 @@ export default {
         this.filters[obj.filter + "lt"] = obj.range[1];
       }
     },
-    check_and_filter() {
-      //Before reloading and requesting new data, first we display what we already have and later will add, if it exist the new data from request
-      let obj = {};
-      let prop = "id";
-      var uniqueArray = Object.keys(
-        tempList.reduce((prev, next) => {
-          if (!obj[next[prop]]) obj[next[prop]] = next;
-          return obj;
-        }, obj)
-      ).map(i => obj[i]);
-      // state.beers = uniqueArray
-    },
     requestAPI() {
       this.$router.push("/results");
       this.setQueryString();
@@ -171,7 +159,7 @@ export default {
     setQueryString() {
       //check radio buttons for type of string search
       this.filters[this.searchUserInputOption] = this.userSearch;
-      var str = "";
+      let str = "";
       for (let key in this.filters) {
         if (this.filters[key] !== "" && this.filters[key]) {
           str += key + "=" + this.filters[key] + "&";

@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import DisplaySearchResults from './views/DisplaySearchResults.vue'
 import DisplayBeer from './views/DisplayBeer.vue'
-import About from  './views/About.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -22,11 +21,6 @@ export default new Router({
     name: 'beer',
     props: true,
     component: DisplayBeer
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: About
   }
   ]
 })

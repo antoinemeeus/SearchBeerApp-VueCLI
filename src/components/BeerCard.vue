@@ -1,7 +1,7 @@
 <template>
   <v-card
     hover
-    :to="`/beer/${this.beerInformation.id}`"
+    :to="`/beer/${beerInformation.id}`"
   >
     <v-layout>
       <v-flex xs4>
@@ -32,15 +32,15 @@
           <v-flex>
             <v-card-title>
               <div>
-                <h4>{{ this.beerInformation.name }}</h4><br>
+                <h4>{{ beerInformation.name }}</h4><br>
                 <span class="font-italic">
-                  "{{ this.beerInformation.tagline }}"
+                  "{{ beerInformation.tagline }}"
                 </span>
               </div>
             </v-card-title>
             <v-divider />
             <v-card-text>
-              {{ this.beerInformation.description }}
+              {{ beerInformation.description }}
             </v-card-text>
           </v-flex>
           <v-flex>
@@ -60,7 +60,7 @@
                     />
 
                     <div class="mt-1">
-                      <span>ABV: {{ this.beerInformation.abv }}%</span>
+                      <span>ABV: {{ beerInformation.abv }}%</span>
                     </div>
                   </div>
                   <span>Alcohol by volume</span>
@@ -76,7 +76,7 @@
                     />
 
                     <div class="mt-1">
-                      <span>SRM: {{ this.beerInformation.srm }}</span>
+                      <span>SRM: {{ beerInformation.srm }}</span>
                     </div>
                   </div>
                   <span>Beer color</span>
@@ -92,7 +92,7 @@
                     />
 
                     <div class="mt-1">
-                      <span>IBU: {{ this.beerInformation.ibu }}</span>
+                      <span>IBU: {{ beerInformation.ibu }}</span>
                     </div>
                   </div>
                   <span>Relative bitterness of beer</span>
@@ -108,7 +108,7 @@
                     />
 
                     <div class="mt-1">
-                      <span>OG: {{ this.beerInformation.target_og }}</span>
+                      <span>OG: {{ beerInformation.target_og }}</span>
                     </div>
                   </div>
                   <span>Original gravity of beer</span>
@@ -130,27 +130,25 @@ export default {
     srmIndex() {
       //Return the index of srm of a list that is nearest of the actual beer srm
       //Use to select images from assets with correct srm-{index}
-      var srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
-      var pr_srm = this.beerInformation.srm;
-      var number = srmIndex.reduce(function(prev, curr) {
+      let srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
+      let pr_srm = this.beerInformation.srm;
+      return srmIndex.reduce(function (prev, curr) {
         return Math.abs(curr - pr_srm) < Math.abs(prev - pr_srm) ? curr : prev;
       });
-      return number;
     },
     ibuIndex() {
       //Return the index of ibu of a list/scale that is nearest of the actual beer ibu
       //Use to select images from assets with correct ibu-{index}
-      var ibuIndex = [];
-      var scale = [0, 120];
-      var step = 12;
+      let ibuIndex = [];
+      let scale = [0, 120];
+      let step = 12;
       for (let i = scale[0]; i <= scale[1]; i += step) {
         ibuIndex.push(i);
       }
-      var pr_ibu = this.beerInformation.ibu;
-      var number = ibuIndex.reduce(function(prev, curr) {
+      let pr_ibu = this.beerInformation.ibu;
+      return ibuIndex.reduce(function (prev, curr) {
         return Math.abs(curr - pr_ibu) < Math.abs(prev - pr_ibu) ? curr : prev;
       });
-      return number;
     }
   }
 };
@@ -159,15 +157,11 @@ export default {
 <style scoped>
 .v-card__text {
   display: -webkit-box;
-  margin: 0 auto;
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
   padding-bottom: 0;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* max-height: 4em;
-  overflow: hidden;
-  text-overflow: ellipsis; */
 }
 </style>

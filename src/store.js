@@ -15,40 +15,35 @@ export default new Vuex.Store({
     filter_parameters: ''
   },
   mutations: {
-    SET_BEERS (state, beers) {
+    SET_BEERS(state, beers) {
       state.beers = beers
     },
-    ADD_BEERS (state, beers) {
+    ADD_BEERS(state, beers) {
       // concat the two arrays and remove duplicates if any.
 
-      var tempList = [...state.beers, ...beers]
+      let tempList = [...state.beers, ...beers]
       let obj = {}
       let prop = 'id'
-      var uniqueArray = Object.keys(tempList.reduce((prev, next) => {
+      state.beers = Object.keys(tempList.reduce((prev, next) => {
         if (!obj[next[prop]]) obj[next[prop]] = next
         return obj
       }, obj)).map((i) => obj[i])
-      state.beers = uniqueArray
     },
-    SET_PAGINATION_PARAMETERS (state, parameters) {
+    SET_PAGINATION_PARAMETERS(state, parameters) {
       state.pagination_parameters = parameters
     },
-    SET_FILTERS_PARAMETERS (state, parameters) {
+    SET_FILTERS_PARAMETERS(state, parameters) {
       state.filter_parameters = parameters
     },
-
-    SET_LOADING (state, bol) {
+    SET_LOADING(state, bol) {
       state.loading = bol
     }
-
   },
-  getters: {
-
-  },
+  getters: {},
   actions: {
-    fetchBeers ({
-      commit
-    }) {
+    fetchBeers({
+                 commit
+               }) {
       commit('SET_LOADING', true)
       axios
         .get('https://api.punkapi.com/v2/beers' + '?' + this.state.pagination_parameters + '&' + this.state.filter_parameters)
@@ -62,9 +57,9 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err))
     },
-    fetchMoreBeers ({
-      commit
-    }) {
+    fetchMoreBeers({
+                     commit
+                   }) {
       commit('SET_LOADING', true)
       axios
         .get('https://api.punkapi.com/v2/beers' + '?' + this.state.pagination_parameters + '&' + this.state.filter_parameters)
@@ -78,9 +73,9 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err))
     },
-    fetchUniqueBeers ({
-      commit
-    }, parameter) {
+    fetchUniqueBeers({
+                       commit
+                     }, parameter) {
       commit('SET_LOADING', true)
       axios
         .get('https://api.punkapi.com/v2/beers/' + parameter)

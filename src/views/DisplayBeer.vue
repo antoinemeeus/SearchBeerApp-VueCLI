@@ -17,7 +17,7 @@
         </v-btn>
       </v-flex>
       <v-flex>
-        <v-progress-linear :indeterminate="loadingBeer" />
+        <v-progress-linear :indeterminate="loadingBeer"/>
       </v-flex>
 
       <v-flex>
@@ -60,14 +60,14 @@
               <v-flex>
                 <div>
                   <h4 class="display-2">
-                    {{ this.idvBeerInformation.name }}
+                    {{ idvBeerInformation.name }}
                   </h4><br>
                   <span class=" headline font-italic">
-                    "{{ this.idvBeerInformation.tagline }}"
+                    "{{ idvBeerInformation.tagline }}"
                   </span>
                 </div>
 
-                <v-divider />
+                <v-divider/>
 
                 <v-layout
                   py-4
@@ -80,26 +80,26 @@
                   </v-flex>
                   <v-flex>
                     <div>
-                      {{ this.idvBeerInformation.description }}
+                      {{ idvBeerInformation.description }}
                     </div>
                   </v-flex>
                   <v-flex pb-2>
                     <span class="font-weight-medium font-italic">
-                      First brewed: {{ this.idvBeerInformation.first_brewed }}
+                      First brewed: {{ idvBeerInformation.first_brewed }}
                     </span>
                   </v-flex>
                 </v-layout>
 
                 <BrewSheet
                   v-if="!loadingBeer"
-                  :beer-information="this.idvBeerInformation"
+                  :beer-information="idvBeerInformation"
                 />
               </v-flex>
             </v-layout>
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-spacer />
+      <v-spacer/>
       <v-flex
         d-flex
         align-start
@@ -112,7 +112,8 @@
 
 <script>
 import BrewSheet from "../components/BrewSheet";
-import { mapState } from "vuex";
+import {mapState} from "vuex";
+
 export default {
   name: "Beer",
   components: {
@@ -158,6 +159,42 @@ export default {
       ]
     };
   },
+  computed: {
+    ...mapState(["beers"]),
+    srmIndex() {
+      //Return the index of srm of a list that is nearest of the actual beer srm
+      //Use to select images from assets with correct srm-{index}
+      let srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
+      let pr_srm = this.idvBeerInformation.srm;
+      return srmIndex.reduce(function (prev, curr) {
+        return Math.abs(curr - pr_srm) < Math.abs(prev - pr_srm) ? curr : prev;
+      });
+    },
+    ibuIndex() {
+      //Return the index of ibu of a list/scale that is nearest of the actual beer ibu
+      //Use to select images from assets with correct ibu-{index}
+      let ibuIndex = [];
+      let scale = [0, 120];
+      let step = 12;
+      for (let i = scale[0]; i <= scale[1]; i += step) {
+        ibuIndex.push(i);
+      }
+      let pr_ibu = this.idvBeerInformation.ibu;
+      return ibuIndex.reduce(function (prev, curr) {
+        return Math.abs(curr - pr_ibu) < Math.abs(prev - pr_ibu) ? curr : prev;
+      });
+    }
+  },
+  watch: {
+    "$route.params.id"(newId) {
+      this.requestBeer(newId);
+    },
+    beers(newBeers) {
+      this.idvBeerInformation = newBeers[0];
+      this.setItemContent();
+      this.loadingBeer = false;
+    }
+  },
   mounted() {
     this.requestBeer(this.id);
   },
@@ -167,7 +204,7 @@ export default {
       this.foodItems.content = this.idvBeerInformation[this.foodItems.key];
       this.ingredientsItems.content = this.idvBeerInformation[
         this.ingredientsItems.key
-      ];
+        ];
       this.oneLineItems.map(obj => {
         obj.content = this.idvBeerInformation[obj.key];
       });
@@ -186,7 +223,7 @@ export default {
     requestBeer(param) {
       //return beer in memory
       if (typeof param === "string") console.log("param" + typeof param);
-      var test = this.beers.find(function(obj) {
+      let test = this.beers.find(function (obj) {
         return obj.id == param;
       });
       if (test) {
@@ -196,45 +233,6 @@ export default {
         this.loadingBeer = true;
         this.$store.dispatch("fetchUniqueBeers", param);
       }
-    }
-  },
-  computed: {
-    ...mapState(["beers"]),
-    srmIndex() {
-      //Return the index of srm of a list that is nearest of the actual beer srm
-      //Use to select images from assets with correct srm-{index}
-      var srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
-      var pr_srm = this.idvBeerInformation.srm;
-      var number = srmIndex.reduce(function(prev, curr) {
-        return Math.abs(curr - pr_srm) < Math.abs(prev - pr_srm) ? curr : prev;
-      });
-      return number;
-    },
-    ibuIndex() {
-      //Return the index of ibu of a list/scale that is nearest of the actual beer ibu
-      //Use to select images from assets with correct ibu-{index}
-      var ibuIndex = [];
-      var scale = [0, 120];
-      var step = 12;
-      for (let i = scale[0]; i <= scale[1]; i += step) {
-        ibuIndex.push(i);
-      }
-      var pr_ibu = this.idvBeerInformation.ibu;
-      var number = ibuIndex.reduce(function(prev, curr) {
-        return Math.abs(curr - pr_ibu) < Math.abs(prev - pr_ibu) ? curr : prev;
-      });
-      return number;
-    }
-  },
-
-  watch: {
-    "$route.params.id"(newId) {
-      this.requestBeer(newId);
-    },
-    beers(newBeers) {
-      this.idvBeerInformation = newBeers[0];
-      this.setItemContent();
-      this.loadingBeer = false;
     }
   }
 };

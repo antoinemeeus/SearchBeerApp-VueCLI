@@ -18,23 +18,10 @@
       fixed
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>Beer App</v-toolbar-title>
-      <v-toolbar-items mx-4>
-        <v-btn
-          flat
-          to="/"
-        >
-          Home
-        </v-btn>
-        <v-btn
-          flat
-          to="/about"
-        >
-          About
-        </v-btn>
-      </v-toolbar-items>
+      <v-toolbar-title onclick="this.$router.push('/')">
+        Beer App
+      </v-toolbar-title>
       <v-spacer />
-
       <v-toolbar-title
         v-if="this.$store.state.loading"
         class="white--text"
@@ -75,12 +62,10 @@ export default {
       drawer: null
     };
   },
-  computed: {},
   watch: {
     $route(to, from) {
       // react to route changes...
     }
-  },
-  methods: {}
+  }
 };
 </script>

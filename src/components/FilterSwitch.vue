@@ -5,7 +5,7 @@
   >
     <v-flex class="text-xs-center">
       <span class="subheading">
-        {{ this.payload.title }}
+        {{ payload.title }}
       </span>
     </v-flex>
 
@@ -13,8 +13,8 @@
       <v-range-slider
         v-model="range"
         class="my-0 py-0"
-        :max="this.payload.range[1]"
-        :min="this.payload.range[0]"
+        :max="payload.range[1]"
+        :min="payload.range[0]"
         @change="$emit('sliderChange',emitValue)"
       />
     </v-flex>
@@ -49,7 +49,6 @@
 <script>
 export default {
   props: ["payload"],
-
   data() {
     return {
       range: [...this.payload.range],
@@ -61,22 +60,7 @@ export default {
   },
   computed: {
     emitValue() {
-      return { filterSwitch: this.payload.filter, value: this.range };
-    }
-  },
-  methods: {
-    textFieldsLimitsCheck() {
-      var isCorrect = true;
-
-      if (this.range[0] < this.payload.range[0]) {
-        isCorrect = false;
-        this.range[0] = 0;
-      }
-      if (this.range[1] > this.payload.range[1]) {
-        isCorrect = false;
-        this.range[1] = this.payload.range[1];
-      }
-      return isCorrect;
+      return {filterSwitch: this.payload.filter, value: this.range};
     }
   }
 };

@@ -45,26 +45,7 @@ export default {
     duration: 300,
     offset: 0,
     easing: "easeInOutCubic",
-    number: 0
   }),
-  watch: {
-    pagination(newP, oldP) {
-      this.setPaginationQuery();
-      if (newP.page != oldP.page) {
-        //scrool to top of window after changing pages
-        this.$vuetify.goTo(this.target, this.options);
-      }
-
-      if (this.beers.length <= newP.page * newP.rowsPerPage) {
-        console.log("We are at last page, getting more data");
-        this.$store.dispatch("fetchMoreBeers");
-      }
-    }
-  },
-
-  mounted() {
-    this.setPaginationQuery();
-  },
   computed: {
     ...mapState(["beers"]),
     target() {
@@ -81,9 +62,26 @@ export default {
       };
     }
   },
+  watch: {
+    pagination(newP, oldP) {
+      this.setPaginationQuery();
+      if (newP.page != oldP.page) {
+        //scroll to top of window after changing pages
+        this.$vuetify.goTo(this.target, this.options);
+      }
+
+      if (this.beers.length <= newP.page * newP.rowsPerPage) {
+        console.log("We are at last page, getting more data");
+        this.$store.dispatch("fetchMoreBeers");
+      }
+    }
+  },
+  mounted() {
+    this.setPaginationQuery();
+  },
   methods: {
     setPaginationQuery() {
-      var queryStr =
+      let queryStr =
         "page=" +
         this.pagination.page +
         "&" +

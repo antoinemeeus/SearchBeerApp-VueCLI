@@ -172,27 +172,25 @@ export default {
     srmIndex() {
       //Return the index of srm of a list that is nearest of the actual beer srm
       //Use to select images from assets with correct srm-{index}
-      var srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
-      var pr_srm = this.beerInformation.srm;
-      var number = srmIndex.reduce(function(prev, curr) {
+      let srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
+      let pr_srm = this.beerInformation.srm;
+      return srmIndex.reduce(function (prev, curr) {
         return Math.abs(curr - pr_srm) < Math.abs(prev - pr_srm) ? curr : prev;
       });
-      return number;
     },
     ibuIndex() {
       //Return the index of ibu of a list/scale that is nearest of the actual beer ibu
       //Use to select images from assets with correct ibu-{index}
-      var ibuIndex = [];
-      var scale = [0, 120];
-      var step = 12;
+      let ibuIndex = [];
+      let scale = [0, 120];
+      let step = 12;
       for (let i = scale[0]; i <= scale[1]; i += step) {
         ibuIndex.push(i);
       }
-      var pr_ibu = this.beerInformation.ibu;
-      var number = ibuIndex.reduce(function(prev, curr) {
+      let pr_ibu = this.beerInformation.ibu;
+      return ibuIndex.reduce(function (prev, curr) {
         return Math.abs(curr - pr_ibu) < Math.abs(prev - pr_ibu) ? curr : prev;
       });
-      return number;
     }
   },
   mounted() {
@@ -204,7 +202,7 @@ export default {
       this.foodItems.content = this.beerInformation[this.foodItems.key];
       this.ingredientsItems.content = this.beerInformation[
         this.ingredientsItems.key
-      ];
+        ];
       this.items.map(obj => {
         obj.dynamicLink
           ? (obj.imageSrc = this.srcTypeImg(obj.typeImg))
@@ -242,29 +240,27 @@ export default {
 
     getIndex(val) {
       if (val === "srm") {
-        var srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
-        var pr_srm = this.beerInformation.srm;
-        var number = srmIndex.reduce(function(prev, curr) {
+        let srmIndex = [2, 3, 4, 6, 9, 12, 15, 18, 20, 24, 30, 40];
+        let pr_srm = this.beerInformation.srm;
+        return srmIndex.reduce(function (prev, curr) {
           return Math.abs(curr - pr_srm) < Math.abs(prev - pr_srm)
             ? curr
             : prev;
         });
-        return number;
       }
       if (val === "hops") {
-        var ibuIndex = [];
-        var scale = [0, 120];
-        var step = 12;
+        let ibuIndex = [];
+        let scale = [0, 120];
+        let step = 12;
         for (let i = scale[0]; i <= scale[1]; i += step) {
           ibuIndex.push(i);
         }
-        var pr_ibu = this.beerInformation.ibu;
-        var number = ibuIndex.reduce(function(prev, curr) {
+        let pr_ibu = this.beerInformation.ibu;
+        return ibuIndex.reduce(function (prev, curr) {
           return Math.abs(curr - pr_ibu) < Math.abs(prev - pr_ibu)
             ? curr
             : prev;
         });
-        return number;
       }
       return "";
     }
