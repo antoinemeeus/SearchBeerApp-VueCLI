@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@mdi/js": "^5.5.55",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.4",
     "vue": "^2.6.12",
